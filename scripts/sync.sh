@@ -23,8 +23,8 @@ fi
 
 # sync mayi
 
-if [ ! -d "data/mayi" ]; then
-    mkdir data/mayi
+if [ ! -d "data/mayi/data" ]; then
+    mkdir data/mayi/data
 fi
 
 VERSIONURL='https://raw.githubusercontent.com/MYDan/openapi/master/scripts/mayi/version'
@@ -39,7 +39,7 @@ else
     exit 1
 fi
 
-MAYIPATH="data/mayi/mayi.$version.tar.gz"
+MAYIPATH="data/mayi/data/mayi.$version.tar.gz"
 if [ -f "$MAYIPATH" ];then
     fmd5=$(md5sum $MAYIPATH|awk '{print $1}')
     if [ "X$md5" != "X$fmd5" ];then
@@ -49,11 +49,11 @@ if [ -f "$MAYIPATH" ];then
     fi
 fi
 
-TEMPNAME=$(mktemp mayi.XXXXXX )
-wget --no-check-certificate -O "/tmp/$TEMPNAME" "https://github.com/MYDan/mayi/archive/mayi.$version.tar.gz" || exit 1
+TEMPNAME=$(mktemp /tmp/mayi.XXXXXX )
+wget --no-check-certificate -O "$TEMPNAME" "https://github.com/MYDan/mayi/archive/mayi.$version.tar.gz" || exit 1
 
-if [ -f "/tmp/$TEMPNAME" ];then
-    mv /tmp/$TEMPNAME $MAYIPATH
+if [ -f "$TEMPNAME" ];then
+    mv $TEMPNAME $MAYIPATH
 else
     exit 1
 fi
