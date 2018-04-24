@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e 
+
 DIR=$( dirname $0 )
 
 cd "$DIR/.." || exit 1
@@ -24,7 +26,7 @@ fi
 # sync mayi
 
 if [ ! -d "data/mayi/data" ]; then
-    mkdir data/mayi/data
+    mkdir -p data/mayi/data
 fi
 
 VERSIONURL='https://raw.githubusercontent.com/MYDan/openapi/master/scripts/mayi/version'
