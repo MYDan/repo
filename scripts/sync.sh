@@ -52,6 +52,7 @@ if [ -f "$MAYIPATH" ];then
 fi
 
 TEMPNAME=$(mktemp /tmp/mayi.XXXXXX )
+chmod a+r $TEMPNAME
 wget --no-check-certificate -O "$TEMPNAME" "https://github.com/MYDan/mayi/archive/mayi.$version.tar.gz" || exit 1
 
 if [ -f "$TEMPNAME" ];then
