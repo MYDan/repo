@@ -61,4 +61,6 @@ else
     exit 1
 fi
 
+echo $VVVV > data/mayi/data/version
+
 exit 0
