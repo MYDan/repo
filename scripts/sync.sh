@@ -29,8 +29,13 @@ if [ ! -d "data/mayi/data" ]; then
     mkdir -p data/mayi/data
 fi
 
-VERSIONURL='https://raw.githubusercontent.com/MYDan/openapi/master/scripts/mayi/version'
-VVVV=$(curl -k -s $VERSIONURL)
+if [ "X$SYNC_MYDan_VERSION" = "X" ];then
+    VERSIONURL='https://raw.githubusercontent.com/MYDan/openapi/master/scripts/mayi/version'
+    VVVV=$(curl -k -s $VERSIONURL)
+else
+    VVVV=$SYNC_MYDan_VERSION
+fi
+
 version=$(echo $VVVV|awk -F: '{print $1}')
 md5=$(echo $VVVV|awk -F: '{print $2}')
 
@@ -47,6 +52,7 @@ if [ -f "$MAYIPATH" ];then
     if [ "X$md5" != "X$fmd5" ];then
         rm -f "data/mayi/mayi.$version.tar.gz"
     else
+        echo $VVVV > data/mayi/data/version
         exit 0;
     fi
 fi
